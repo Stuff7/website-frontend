@@ -248,9 +248,19 @@ main h2 a {
 	#log {
 		width: 200px;
 	}
+	@media(max-height: 850px) {
+		#datepicker ul {
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			max-width: none;
+		}
+	}
+}
+@media(max-height: 500px) {
 	#datepicker ul {
 		bottom: 0;
-		right: 0;
-		width: 100%;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 }
