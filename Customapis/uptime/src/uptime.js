@@ -2,94 +2,72 @@
 
 import "Base/base.js"
 import {Palette} from "Libs/color.js"
-import {$, $$, $onready, createLogger, getCookie} from "Libs/dom_utils.js"
-import {createURL,getDatePicker} from "./utils.js"
+import {$, $$, $onready, createLogger} from "Libs/dom_utils.js"
+import {URLConstructor,getDatePicker,postChanges} from "./utils.js"
 
 $onready(function() {
-	const copyButton = $(".cpy .button")
 	const copyInput = $(".cpy .input")
 	const logger = createLogger()
-	const html = $("html")
-	const params = $$(".param")
-	const url = createURL(copyInput.dataset.url, copyInput.dataset.id)
+	const url = URLConstructor(copyInput.dataset.url, copyInput.dataset.id)
 	const preview = $(".prompt > a:first-child")
 	const datepicker = getDatePicker()
 
-	params.map = Array.prototype.map
-
-	preview.update = function() {
-		fetch(url.getUrl()).then(r=> r.text()).then(uptime=> {
-			this.innerText = uptime
+	function updatePreview() {
+		fetch(url.getURL()).then(r=> r.text()).then(uptime=> {
+			preview.innerText = uptime
 		})
 	}
 
-	copyInput.select = function() {
-		const range = document.createRange();
-		range.selectNode(this);
-		window.getSelection().removeAllRanges();
-		window.getSelection().addRange(range);
-	}
+	for(const param of $$(".param")) {
+		const input = param.$("[contenteditable]")
+		const toggle = param.$("[type=checkbox]")
+		const name = param.$(".label span").innerText
 
-	copyInput.innerHTML = url.setAll(...params.map((p, i)=> {
-		const input = p.$("[contenteditable]"),
-					toggle = p.$("[type=checkbox]")
-		let lastTimeout = 0
+		const toggleName = name+"_on"
+		const value = input? ()=> input.innerText : ()=> datepicker.date.toISOString()
+
+		function updateUI(val = value()) {
+			toggle.checked? url.add(name, val) : url.remove(name)
+			copyInput.innerHTML = url.getHTML()
+			updatePreview()
+		}
+		toggle.checked? url.add(name, value()) : url.remove(name)
 
 		toggle.on("change", function() {
-			copyInput.innerHTML = url.turn(i, this.checked)
-			fetch("/api/uptime", {
-				method: "POST",
-				body: url.getAsField(i, this.checked, true),
-				headers: {
-					"X-CSRFToken": getCookie("csrftoken")
-				}
-			})
-			preview.update()
+			updateUI()
+			postChanges(toggleName, this.checked)
 		})
-		const response = {enabled: toggle.checked}
+
 		if(input) {
-			response.msg = encodeURI(input.innerText)
+			const inputName = name+"_msg"
+			let lastTimeout = 0
 			input.on("input", function() {
+				updateUI(this.innerText)
 				clearTimeout(lastTimeout)
-				copyInput.innerHTML = url.set(i, encodeURI(this.innerText))
-				lastTimeout = setTimeout(()=> {
-					fetch("/api/uptime", {
-						method: "POST",
-						body: url.getAsField(i, this.innerText),
-						headers: {
-							"X-CSRFToken": getCookie("csrftoken")
-						}
-					})
-					preview.update()
-				}, 1e3)
+				lastTimeout = setTimeout(()=> postChanges(inputName, this.innerText), 1e3)
 			})
 		}
 		else {
-			const dropdownTag = p.$("#datepicker span")
-			response.msg = encodeURI(datepicker.date.toISOString())
+			const inputName = name+"_date"
+			const dropdownTag = param.$("#datepicker span")
 			datepicker.on("datechange", function(date) {
 				const ISOString = date.toISOString()
+				updateUI(ISOString)
 				dropdownTag.innerText = this.toString()
-				copyInput.innerHTML = url.set(i, encodeURI(ISOString))
-				fetch("/api/uptime", {
-					method: "POST",
-					body: url.getAsField(i, ISOString),
-					headers: {
-						"X-CSRFToken": getCookie("csrftoken")
-					}
-				})
-				preview.update()
+				postChanges(inputName, ISOString)
 			})
 		}
-		return response
-	}))
-	preview.update()
+	}
+	copyInput.innerHTML = url.getHTML()
+	updatePreview()
 
-	copyInput.onclick = function() {this.select()}
-	copyButton.onclick = function() {
-		copyInput.select()
+	$(".cpy .button").on("click", function() {
+		const range = document.createRange();
+		range.selectNode(copyInput);
+		window.getSelection().removeAllRanges();
+		window.getSelection().addRange(range);
 		document.execCommand("copy")
 		window.getSelection().removeAllRanges();
 		logger.show()
-	}
+	})
 })
