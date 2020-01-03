@@ -1,0 +1,164 @@
+@use "dropdown";
+@use "colorpicker";
+@use "shortcuts" as sc;
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web|Dancing+Script&display=swap);
+
+html {
+	--darker-c1: #0C0C0C;
+	--dark-c1: #151515;
+	--dim-c1: #333;
+	--normal-c1: #999;
+	--light-c1: #FFF;
+}
+* {
+	@include sc.scrollbar;
+	font: 16px "Titillium Web";
+	color: #FFF;
+	margin: 0;
+	::selection {
+		background-color: rgba(255,255,255,0.2);
+	}
+}
+body {
+	@include sc.flex($dir: column);
+	background-color: var(--dark-c1);
+	overflow: hidden;
+	height: 100vh;
+}
+input {
+	@include sc.hideInputSpinners;
+}
+button {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+}
+nav {
+	display: flex;
+	background-color: var(--darker-c1);
+	outline: 1px solid var(--dim-c1);
+	z-index: 1;
+	user-select: none;
+	flex: 0;
+	> div {
+		display: flex;
+		align-items: center;
+		padding: 0 8px;
+	}
+	svg {
+		@include sc.svg($width: 32px);
+	}
+	&::before {
+		content: "";
+		margin-right: auto;
+		width: 32px;
+		padding: 0 8px;
+	}
+}
+main {
+	display: flex;
+	flex: 1;
+	overflow: hidden auto;
+}
+footer {
+	@include sc.flex($justify: center);
+	background-color: var(--darker-c1);
+	flex: 0;
+	svg {
+		@include sc.svg($width: 28px);
+		padding: 4px 8px;
+		&:hover {
+			fill: var(--light-c1);
+		}
+	}
+}
+
+#nav-hide {
+	display: none;
+}
+#nav-hide + label {
+	position: absolute;
+	z-index: 2;
+	margin: 2px 8px;
+	fill: none;
+	stroke-width: 3px;
+	stroke-linejoin: round;
+	width: 32px;
+	stroke: var(--normal-c1);
+	cursor: pointer;
+}
+#nav-hide + label:hover {
+	stroke: var(--light-c1);
+}
+#nav-hide:checked ~ nav {
+	display: none;
+}
+#nav-hide:checked + label {
+	transform: rotateX(180deg);
+	opacity: .4;
+}
+#nav-hide:checked + label:hover {
+	opacity: 1;
+}
+#nav-home a, #nav-user button, footer a, [for=nav-hide] {
+	font-size: 0;
+}
+#nav-home {
+	border-bottom: 1px solid var(--light-c1);
+	cursor: pointer;
+}
+#nav-home svg, #nav-home span {
+	fill: var(--light-c1);
+	color: var(--light-c1);
+	font: 24px "Dancing Script";
+	font-weight: bold;
+}
+#nav-user {
+	margin-left: auto;
+}
+.dropdown {
+	ul {
+		padding: 8px 0;
+		background-color: var(--darker-c1);
+		border: 1px solid var(--dim-c1);
+		width: 25%;
+		min-width: 200px;
+		max-width: 400px;
+		> label:first-child li {
+			background-color: var(--normal-c1);
+		}
+	}
+	label {
+		li {
+			padding: 4px 16px;
+		}
+		&:hover li {
+			background-color: var(--dim-c1);
+		}
+	}
+	&.focused, &.inner-focused, &:hover {
+		svg, &::after {
+			fill: var(--light-c1);
+			color: var(--light-c1);
+		}
+	}
+	.separator {
+		background-color: var(--normal-c1);
+	}
+}
+#nav-user .dropdown ul {
+	right: 4px;
+}
+#nav-user-color-inner {
+	padding: 0;
+	width: 100%;
+}
+
+@media(max-width: 800px) and (max-height: 350px) {
+	#nav-user-color-inner {
+		top: 0;
+	}
+	#nav-user .dropdown ul {
+		right: 0;
+	}
+}

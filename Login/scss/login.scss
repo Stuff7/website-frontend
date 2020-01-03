@@ -1,0 +1,59 @@
+@use "../../base/scss/base";
+
+main {
+	background: url("../assets/bg.jpg") no-repeat center center fixed;
+	background-size: cover;
+	p {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		column-gap: 12px;
+		width: 50%;
+		&::before, &::after {
+			content: "";
+			display: block;
+			height: 50%;
+			border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+			top: 0px;
+			width: 100%;
+		}
+	}
+}
+
+.layer {
+	background: radial-gradient(#20282D, #09070C);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	opacity: 0.9;
+}
+
+.content {
+	display: flex;
+	padding-top: 16px;
+	width: 50%;
+	flex-wrap: wrap;
+	a {
+		display: inline-flex;
+		border-radius: 20px;
+		padding: 12px 32px;
+		cursor: pointer;
+		flex: 1;
+		text-decoration: none;
+		justify-content: center;
+		&:hover {
+			opacity: 0.85;
+		}
+		span {
+			display: flex;
+			align-items: center;
+			font-size: 16px;
+			font-weight: bolder;
+			margin-left: 8px;
+		}
+	}
+	.mixer {
+		background: linear-gradient(4deg, #333, #1FBAED);
+	}
+}
