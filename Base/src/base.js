@@ -23,12 +23,18 @@ $onready(function() {
 			}).then(r=> location.reload()).catch(e=> console.log(e))
 		}
 	}
-	const palette = Palette.random({min:255, max:500}).updateHTML()
-	palette.baseColor.updateHSV()
-	const colorPicker = ColorPicker(nav.colorDropdown.$(".color-picker"), palette.baseColor)
-	nav.home.onclick = ()=> palette.random().updateHTML().baseColor.updateHSV()
+	const colorPicker = ColorPicker(nav.colorDropdown.$(".color-picker"))
+	const palette = Palette(colorPicker.color.setOptions({min: 255, max: 500})).update().updateHTML()
 	nav.colorDropdown.on("customFocus", ()=> colorPicker.updateUI())
-	colorPicker.on("colorchange", ()=> palette.update().updateHTML())
+
+	const randomColorInput = nav.colorDropdown.$(".random-color label input")
+	randomColorInput.on("change", function() {
+		postColorChange(this.checked? "random" : colorPicker.getColorString())
+	})
+	colorPicker.on("colorchange", ()=> {
+		palette.update().updateHTML()
+		postColorChange(randomColorInput.checked? "random" : colorPicker.getColorString())
+	})
 
 	for(const dropdown of $$(".dropdown"))
 		Dropdown(dropdown)
@@ -36,3 +42,13 @@ $onready(function() {
 		this.$("ul").replaceWith(nav.userDropdown)
 	})
 })
+
+function postColorChange(color) {
+	fetch("/api/user", {
+		method: "POST",
+		body: JSON.stringify({site_color: color}),
+		headers: {
+			"X-CSRFToken": getCookie("csrftoken")
+		}
+	})
+}
