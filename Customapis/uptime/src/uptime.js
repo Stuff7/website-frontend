@@ -8,7 +8,7 @@ import {URLConstructor,getDatePicker,postChanges} from "./utils.js"
 $onready(function() {
 	const copyInput = $(".cpy .input")
 	const logger = createLogger()
-	const url = URLConstructor(copyInput.dataset.url, copyInput.dataset.id)
+	const url = URLConstructor(copyInput.dataset.url)
 	const preview = $(".prompt > a:first-child")
 	const datepicker = getDatePicker()
 

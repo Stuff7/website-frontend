@@ -5,17 +5,17 @@ const varOpen = VAR("nb-var", "$(")+VAR("fn", "urlfetch")+"&nbsp"
 const varClose = VAR("nb-var", ")")
 const param = {online: PARAM("online"), offline: PARAM("offline"), test: PARAM("test")}
 
-export function URLConstructor(url, id) {
-	if(!(this instanceof URLConstructor)) return new URLConstructor(url,id)
-	this.baseURL = `${url}?id=${id}`
-	this.varOpen = varOpen+VAR("str", url)+PARAM("id", "?")+VAR("digit", id)
+export function URLConstructor(url) {
+	if(!(this instanceof URLConstructor)) return new URLConstructor(url)
+	this.baseURL = url
+	this.varOpen = varOpen+VAR("str", url)
 	this.params = {}
 }
 URLConstructor.prototype.getHTML = function() {
 	return this.varOpen + this.reduceParams() + varClose
 }
 URLConstructor.prototype.getURL = function() {
-	return this.baseURL + this.reduceParams((k,v)=> `&${k}=${v}`)
+	return this.baseURL + this.reduceParams((k,v)=> `${k}=${v}&`, "?").slice(0,-1)
 }
 URLConstructor.prototype.reduceParams = function(fn = (k,v)=> param[k]+encodeURIComponent(v), params = "") {
 	for(const name in this.params)
@@ -39,7 +39,7 @@ export function getDatePicker() {
 export function postChanges(k,v) {
 	const data = {}
 	data[k] = v
-	fetch("/api/uptime", {
+	fetch("/api/uptime/settings/", {
 		method: "POST",
 		body: JSON.stringify(data),
 		headers: {

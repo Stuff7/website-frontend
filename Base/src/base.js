@@ -13,14 +13,8 @@ $onready(function() {
 	}
 	for(const option of nav.langList) {
 		option.nextSibling.onclick = function() {
-			option.checked||
-			fetch("/api/language", {
-				method: "POST",
-				body: this.dataset.name,
-				headers: {
-					"X-CSRFToken": getCookie("csrftoken")
-				}
-			}).then(r=> location.reload()).catch(e=> console.log(e))
+			option.checked||postChanges("language", this.dataset.name)
+				.then(r=> location.reload()).catch(e=> console.log(e))
 		}
 	}
 	const colorPicker = ColorPicker(nav.colorDropdown.$(".color-picker"))
@@ -29,11 +23,11 @@ $onready(function() {
 
 	const randomColorInput = nav.colorDropdown.$(".random-color label input")
 	randomColorInput.on("change", function() {
-		postColorChange(this.checked? "random" : colorPicker.getColorString())
+		postChanges("site_color", this.checked? "random" : colorPicker.getColorString())
 	})
 	colorPicker.on("colorchange", ()=> {
 		palette.update().updateHTML()
-		postColorChange(randomColorInput.checked? "random" : colorPicker.getColorString())
+		postChanges("site_color", randomColorInput.checked? "random" : colorPicker.getColorString())
 	})
 
 	for(const dropdown of $$(".dropdown"))
@@ -43,10 +37,12 @@ $onready(function() {
 	})
 })
 
-function postColorChange(color) {
-	fetch("/api/user", {
+function postChanges(k, v) {
+	const data = {}
+	data[k] = v
+	return fetch("/api/user/settings/", {
 		method: "POST",
-		body: JSON.stringify({site_color: color}),
+		body: JSON.stringify(data),
 		headers: {
 			"X-CSRFToken": getCookie("csrftoken")
 		}
