@@ -1,5 +1,5 @@
 import {DatePicker} from "Libs/date_picker.js"
-import {$,getCookie} from "Libs/dom_utils.js"
+import {$} from "Libs/dom_utils.js"
 
 const varOpen = VAR("nb-var", "$(")+VAR("fn", "urlfetch")+"&nbsp"
 const varClose = VAR("nb-var", ")")
@@ -12,14 +12,16 @@ export function URLConstructor(url) {
 	this.params = {}
 }
 URLConstructor.prototype.getHTML = function() {
-	return this.varOpen + this.reduceParams() + varClose
+	return this.varOpen + this.reduceParams((k,v,params)=> {
+		return (!params? PARAM(k,"?") : param[k]) + v
+	}) + varClose
 }
 URLConstructor.prototype.getURL = function() {
 	return this.baseURL + this.reduceParams((k,v)=> `${k}=${v}&`, "?").slice(0,-1)
 }
-URLConstructor.prototype.reduceParams = function(fn = (k,v)=> param[k]+encodeURIComponent(v), params = "") {
+URLConstructor.prototype.reduceParams = function(fn, params = "") {
 	for(const name in this.params)
-		params+=fn.call(this, name, this.params[name])
+		params+=fn.call(this, name, encodeURIComponent(this.params[name]), params)
 	return params
 }
 URLConstructor.prototype.add = function(name, value) {
@@ -35,17 +37,6 @@ export function getDatePicker() {
 	const dropdownTag = $("#datepicker").$("span")
 	dropdownTag.innerText = datepicker.toString()
 	return datepicker
-}
-export function postChanges(k,v) {
-	const data = {}
-	data[k] = v
-	fetch("/api/uptime/settings/", {
-		method: "POST",
-		body: JSON.stringify(data),
-		headers: {
-			"X-CSRFToken": getCookie("csrftoken")
-		}
-	})
 }
 
 function VAR(className, innerText) {

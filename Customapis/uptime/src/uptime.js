@@ -1,9 +1,10 @@
 "use strict"
 
 import "Base/base.js"
+import {post} from "Base/utils.js"
 import {Palette} from "Libs/color.js"
 import {$, $$, $onready, createLogger} from "Libs/dom_utils.js"
-import {URLConstructor,getDatePicker,postChanges} from "./utils.js"
+import {URLConstructor,getDatePicker} from "./utils.js"
 
 $onready(function() {
 	const copyInput = $(".cpy .input")
@@ -13,7 +14,8 @@ $onready(function() {
 	const datepicker = getDatePicker()
 
 	function updatePreview() {
-		fetch(url.getURL()).then(r=> r.text()).then(uptime=> {
+		preview.href = url.getURL()
+		fetch(preview.href).then(r=> r.text()).then(uptime=> {
 			preview.innerText = uptime
 		})
 	}
@@ -35,16 +37,17 @@ $onready(function() {
 
 		toggle.on("change", function() {
 			updateUI()
-			postChanges(toggleName, this.checked)
+			post("uptime_settings", {[toggleName]: this.checked})
 		})
 
 		if(input) {
 			const inputName = name+"_msg"
 			let lastTimeout = 0
 			input.on("input", function() {
-				updateUI(this.innerText)
 				clearTimeout(lastTimeout)
-				lastTimeout = setTimeout(()=> postChanges(inputName, this.innerText), 1e3)
+				lastTimeout = setTimeout(()=> 
+					post("uptime_settings", {[inputName]: this.innerText}).then(r=> updateUI(this.innerText))
+				, 1e3)
 			})
 		}
 		else {
@@ -54,7 +57,7 @@ $onready(function() {
 				const ISOString = date.toISOString()
 				updateUI(ISOString)
 				dropdownTag.innerText = this.toString()
-				postChanges(inputName, ISOString)
+				post("uptime_settings", {[inputName]: ISOString})
 			})
 		}
 	}

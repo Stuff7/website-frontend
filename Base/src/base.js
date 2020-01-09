@@ -1,7 +1,9 @@
-import {$, $$, $onready, getCookie} from "Libs/dom_utils.js"
+import {$, $$, $onready} from "Libs/dom_utils.js"
 import {ColorPicker} from "Libs/color_picker.js"
 import {Palette} from "Libs/color.js"
 import {Dropdown} from "Libs/dropdown.js"
+
+import {post} from "./utils.js"
 
 $onready(function() {
 	const nav = {
@@ -13,7 +15,7 @@ $onready(function() {
 	}
 	for(const option of nav.langList) {
 		option.nextSibling.onclick = function() {
-			option.checked||postChanges("language", this.dataset.name)
+			option.checked||post("user_settings", {language: this.dataset.name})
 				.then(r=> location.reload()).catch(e=> console.log(e))
 		}
 	}
@@ -23,11 +25,11 @@ $onready(function() {
 
 	const randomColorInput = nav.colorDropdown.$(".random-color label input")
 	randomColorInput.on("change", function() {
-		postChanges("site_color", this.checked? "random" : colorPicker.getColorString())
+		post("user_settings", {site_color: this.checked? "random" : colorPicker.getColorString()})
 	})
 	colorPicker.on("colorchange", ()=> {
 		palette.update().updateHTML()
-		postChanges("site_color", randomColorInput.checked? "random" : colorPicker.getColorString())
+		post("user_settings", {site_color: randomColorInput.checked? "random" : colorPicker.getColorString()})
 	})
 
 	for(const dropdown of $$(".dropdown"))
@@ -36,15 +38,3 @@ $onready(function() {
 		this.$("ul").replaceWith(nav.userDropdown)
 	})
 })
-
-function postChanges(k, v) {
-	const data = {}
-	data[k] = v
-	return fetch("/api/user/settings/", {
-		method: "POST",
-		body: JSON.stringify(data),
-		headers: {
-			"X-CSRFToken": getCookie("csrftoken")
-		}
-	})
-}
