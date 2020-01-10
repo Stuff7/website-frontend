@@ -3,13 +3,13 @@
 @use "datepicker";
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web&display=swap);
 
-main {
+#main {
 	flex-direction: column;
 }
-main h2 {
+#main h2 {
 	text-align: center;
 }
-main h2 a {
+#main h2 a {
 	color: #E175FF;
 }
 
@@ -231,7 +231,7 @@ main h2 a {
 }
 
 @media(max-width: 600px) {
-	main {
+	#main {
 		h2 {
 			display: none;
 		}

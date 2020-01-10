@@ -18,6 +18,7 @@ a {
 		flex: 1;
 		outline: 1px solid rgba(255,255,255,.05);
 		transition: flex 333ms;
+		height: 100%;
 		&:hover, &:active {
 			flex: 1.25;
 			background-color: rgba(255,255,255,.1);
@@ -51,7 +52,7 @@ a {
 		.grid {
 			a {
 				span {
-					height: 100%;
+					flex: 1;
 				}
 				&:hover {
 					span {

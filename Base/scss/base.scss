@@ -3,15 +3,22 @@
 @use "shortcuts" as sc;
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web|Dancing+Script&display=swap);
 
+$darker: #0C0C0C;
+$dark: #151515;
+$dim: #333;
+$normal: #999;
+$light: #FFF;
+
 html {
-	--darker-c1: #0C0C0C;
-	--dark-c1: #151515;
-	--dim-c1: #333;
-	--normal-c1: #999;
-	--light-c1: #FFF;
+	--darker-c1: #{$darker};
+	--dark-c1: #{$dark};
+	--dim-c1: #{$dim};
+	--normal-c1: #{$normal};
+	--light-c1: #{$light};
 }
 * {
-	@include sc.scrollbar;
+	@include sc.scrollbar($dim, $darker);
+	@include sc.scrollbar(var(--dim-c1), var(--darker-c1));
 	font: 16px "Titillium Web";
 	color: #FFF;
 	margin: 0;
@@ -21,7 +28,7 @@ html {
 }
 body {
 	@include sc.flex($dir: column);
-	background-color: var(--dark-c1);
+	@include sc.var(background-color, --dark-c1, $dark);
 	overflow: hidden;
 	height: 100vh;
 }
@@ -35,11 +42,10 @@ button {
 }
 nav {
 	display: flex;
-	background-color: var(--darker-c1);
+	@include sc.var(background-color, --darker-c1, $darker);
 	outline: 1px solid var(--dim-c1);
 	z-index: 1;
 	user-select: none;
-	flex: 0;
 	> div {
 		display: flex;
 		align-items: center;
@@ -47,6 +53,7 @@ nav {
 	}
 	svg {
 		@include sc.svg($width: 32px);
+		@include sc.var(fill, --normal-c1, $normal)
 	}
 	&::before {
 		content: "";
@@ -55,20 +62,20 @@ nav {
 		padding: 0 8px;
 	}
 }
-main {
+#main {
 	display: flex;
 	flex: 1;
 	overflow: hidden auto;
 }
 footer {
 	@include sc.flex($justify: center);
-	background-color: var(--darker-c1);
-	flex: 0;
+	@include sc.var(background-color, --darker-c1, $darker);
 	svg {
 		@include sc.svg($width: 28px);
+		@include sc.var(fill, --normal-c1, $normal);
 		padding: 4px 8px;
 		&:hover {
-			fill: var(--light-c1);
+			@include sc.var(fill, --light-c1, $light);
 		}
 	}
 }
@@ -80,15 +87,12 @@ footer {
 	position: absolute;
 	z-index: 2;
 	margin: 2px 8px;
-	fill: none;
-	stroke-width: 3px;
-	stroke-linejoin: round;
-	width: 32px;
-	stroke: var(--normal-c1);
+	@include sc.svg($fill: none, $width: 32px, $size: 3px, $join: round);
+	@include sc.var(stroke, --normal-c1, $normal);
 	cursor: pointer;
 }
 #nav-hide + label:hover {
-	stroke: var(--light-c1);
+	@include sc.var(stroke, --light-c1, $light);
 }
 #nav-hide:checked ~ nav {
 	display: none;
@@ -108,8 +112,8 @@ footer {
 	cursor: pointer;
 }
 #nav-home svg, #nav-home span {
-	fill: var(--light-c1);
-	color: var(--light-c1);
+	@include sc.var(fill, --light-c1, $light);
+	@include sc.var(color, --light-c1, $light);
 	font: 24px "Dancing Script";
 	font-weight: bold;
 }
@@ -119,13 +123,13 @@ footer {
 .dropdown {
 	ul {
 		padding: 8px 0;
-		background-color: var(--darker-c1);
+		@include sc.var(background-color, --darker-c1, $darker);
 		border: 1px solid var(--dim-c1);
 		width: 25%;
 		min-width: 200px;
 		max-width: 400px;
 		> label:first-child li {
-			background-color: var(--normal-c1);
+			@include sc.var(background-color, --normal-c1, $normal);
 		}
 	}
 	label {
@@ -133,17 +137,17 @@ footer {
 			padding: 4px 16px;
 		}
 		&:hover li {
-			background-color: var(--dim-c1);
+			@include sc.var(background-color, --dim-c1, $dim);
 		}
 	}
 	&.focused, &.inner-focused, &:hover {
 		svg, &::after {
-			fill: var(--light-c1);
-			color: var(--light-c1);
+			@include sc.var(fill, --light-c1, $light);
+			@include sc.var(color, --light-c1, $light);
 		}
 	}
 	.separator {
-		background-color: var(--normal-c1);
+		@include sc.var(background-color, --normal-c1, $normal);
 	}
 }
 #nav-user .dropdown ul {
