@@ -74,6 +74,7 @@ function setupColorChanges() {
 
 	const alwaysRandom = dropdown.$(".random-color label input")
 	updateColor(colorPicker.color)
+	dropdown.on("customFocus", ()=> colorPicker.updateUI())
 	colorPicker.on("colorinput", updateColor)
 	colorPicker.on("colorchange", ()=> post("user_settings",
 		{site_color: alwaysRandom.checked? "random" : colorPicker.getColorString()}))
