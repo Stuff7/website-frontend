@@ -3,13 +3,13 @@
 @use "datepicker";
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web&display=swap);
 
-#main {
+main {
 	flex-direction: column;
 }
-#main h2 {
+main h2 {
 	text-align: center;
 }
-#main h2 a {
+main h2 a {
 	color: #E175FF;
 }
 
@@ -169,13 +169,7 @@
 				width: 26px;
 			}
 		}
-		&:hover + .label {
-			background-color: var(--dim-c1);
-		}
 		input:checked {
-			~ .label {
-				background-color: var(--dim-c1);
-			}
 			+ div {
 				background: var(--light-c1);
 				&::after {
@@ -231,7 +225,7 @@
 }
 
 @media(max-width: 600px) {
-	#main {
+	main {
 		h2 {
 			display: none;
 		}

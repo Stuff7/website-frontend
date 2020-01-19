@@ -53,7 +53,7 @@ nav {
 	}
 	svg {
 		@include sc.svg($width: 32px);
-		@include sc.var(fill, --normal-c1, $normal)
+		@include sc.var(fill, --normal-c1, $normal);
 	}
 	&::before {
 		content: "";
@@ -62,7 +62,7 @@ nav {
 		padding: 0 8px;
 	}
 }
-#main {
+main {
 	display: flex;
 	flex: 1;
 	overflow: hidden auto;
