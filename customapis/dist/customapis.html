@@ -61,11 +61,11 @@
 						<p>COMMAND</p>
 						<div>
 							<label>
-								<input type="radio" name="customapi-cmd-platform">
+								<input type="radio" name="customapi-cmd-platform" data-value="mixer">
 								<p>Mixer</p>
 							</label>
 							<label>
-								<input type="radio" name="customapi-cmd-platform">
+								<input type="radio" name="customapi-cmd-platform" data-value="twitch">
 								<p>Twitch</p>
 							</label>
 						</div>
@@ -77,14 +77,9 @@
 				<tr>
 					<td class="desc"><p>!joined USERNAME</p><p>Returns when the user created their account.</p></td>
 					<td class="api">
-						<div class="cpy">
-							<div class="input">https://stuff7.herokuapp.com/api/mixer/{user}/joined</div>
-							<div class="button">
-								<svg viewBox="0 0 36 36">
-									<rect x="8" y="6" width="24" height="28" rx="2"/>
-									<path d="M24 2 H6 q-2 0 -2 2 V28"/>
-								</svg>
-							</div>
+						<div class="clipboard"
+								 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/joined"
+								 data-params="msg tz format locale">
 						</div>
 						<div id="params">
 							<p>PARAMETERS</p>
@@ -104,12 +99,16 @@
 										<ul>
 											<div class="scroll">
 												<label>
-													<input type="radio" name="customapi-joined-tz">
-													<li data-name="America/Monterrey">Mexico (Monterrey) Time</li>
+													<input type="radio" name="customapi-joined-tz" data-value="UTC" checked>
+													<li>Unknown Region (UTC) Time</li>
 												</label>
 												<label>
-													<input type="radio" name="customapi-joined-tz">
-													<li data-name="US/Pacific">United States (Los Angeles) Time</li>
+													<input type="radio" name="customapi-joined-tz" data-value="America/Monterrey">
+													<li>Mexico (Monterrey) Time</li>
+												</label>
+												<label>
+													<input type="radio" name="customapi-joined-tz" data-value="US/Pacific">
+													<li>United States (Los Angeles) Time</li>
 												</label>
 											</div>
 										</ul>
@@ -125,20 +124,20 @@
 										<ul>
 											<div class="scroll">
 												<label>
-													<input type="radio" name="customapi-joined-format">
-													<li data-name="short">Short</li>
+													<input type="radio" name="customapi-joined-format" data-value="short">
+													<li>Short</li>
 												</label>
 												<label>
-													<input type="radio" name="customapi-joined-format">
-													<li data-name="medium">Medium</li>
+													<input type="radio" name="customapi-joined-format" data-value="medium">
+													<li>Medium</li>
 												</label>
 												<label>
-													<input type="radio" name="customapi-joined-format">
-													<li data-name="long">Long</li>
+													<input type="radio" name="customapi-joined-format" data-value="long" checked>
+													<li>Long</li>
 												</label>
 												<label>
-													<input type="radio" name="customapi-joined-format">
-													<li data-name="full">Full</li>
+													<input type="radio" name="customapi-joined-format" data-value="full">
+													<li>Full</li>
 												</label>
 											</div>
 										</ul>
@@ -154,181 +153,14 @@
 										<ul>
 											<div class="scroll">
 												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
+													<input type="radio" name="customapi-joined-locale" data-value="en" checked>
+													<li>English</li>
 												</label>
 												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
+													<input type="radio" name="customapi-joined-locale" data-value="es">
+													<li>Español</li>
 												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="en">English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale">
-													<li data-name="es">Español</li>
-												</label>
+											</div>
 										</ul>
 									</span>
 								</div>

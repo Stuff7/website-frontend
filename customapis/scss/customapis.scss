@@ -1,6 +1,7 @@
 @use "../../base/scss/base";
 @use "shortcuts" as sc;
 @use "datepicker";
+@use "clipboard";
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web&display=swap);
 
 table#customapis {
@@ -56,6 +57,9 @@ table#customapis {
 			outline: 1px solid;
 			@include sc.var(outline-color, --normal-c1, base.$normal);
 			position: relative;
+			&:hover {
+				background-color: rgba(50,50,50,.5);
+			}
 		}
 	}
 }
@@ -114,32 +118,34 @@ table#customapis {
 	}
 }
 
-.cpy {
-	@include sc.flex($justify: space-between);
-	margin: 0 auto;
+.clipboard {
 	@include sc.var(background-color, --darker-c1, base.$darker);
-	border: 2px solid rgba(255,255,255,0.2);
-	border-radius: 8px;
-	padding: 0 8px;
 	svg {
-		@include sc.svg($stroke: var(--light-c1), $width: 30px, $size: 2, $fill: none);
+		@include sc.svg($width: 30px, $size: 2, $fill: none);
+		@include sc.var(stroke, --light-c1, base.$light);
 	}
-	.input {
-		@include sc.flex($align-items: center);
-		overflow: auto;
-		white-space: nowrap;
-		width: 90%;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-		flex: 1;
-	}
-	.button {
-		padding: 5px 6px 0 6px;
-		border-radius: 100%;
-		&:hover {
-			background-color: rgba(255,255,255,0.1);
-		}
-	}
+}
+
+.normal {
+	color: #FFF;
+}
+.bot-var {
+	color: cyan;
+}
+.str {
+	color: coral;
+}
+.fn {
+	color: deeppink;
+}
+.var {
+	color: chartreuse;
+}
+.op {
+	color: #F33;
+}
+.digit {
+	color: gold;
 }
 
 @media(max-width: 800px) and (max-height: 350px) {
