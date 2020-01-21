@@ -7,7 +7,7 @@ const varClose = VAR("bot-var", ")")
 export function URLConstructor(url, params=[]) {
 	if(!(this instanceof URLConstructor)) return new URLConstructor(url, params)
 	this.baseURL = url
-	this.varOpen = varOpen+VAR("str", url)
+	this.varOpen = VAR("str", url)
 	this.params = {}
 	this.param = {}
 	if(typeof params == "string") params = params.split(" ")
@@ -19,14 +19,14 @@ export function URLConstructor(url, params=[]) {
 URLConstructor.prototype.getHTML = function() {
 	return this.varOpen + this.reduceParams((k,v,params)=> {
 		return (!params? PARAM(k,"?") : this.param[k]) + v
-	}) + varClose
+	})
 }
 URLConstructor.prototype.getURL = function() {
 	return this.baseURL + this.reduceParams((k,v)=> `${k}=${v}&`, "?").slice(0,-1)
 }
 URLConstructor.prototype.setURL = function(url) {
 	this.baseURL = url
-	this.varOpen = varOpen+VAR("str", url)
+	this.varOpen = VAR("str", url)
 }
 URLConstructor.prototype.reduceParams = function(fn, params = "") {
 	for(const name in this.params)

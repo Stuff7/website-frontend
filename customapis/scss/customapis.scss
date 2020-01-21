@@ -2,40 +2,14 @@
 @use "shortcuts" as sc;
 @use "datepicker";
 @use "clipboard";
-@import url(https://fonts.googleapis.com/css?family=Titillium+Web&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web|Ubuntu+Mono&display=swap);
 
-table#customapis {
-	@include sc.table-vscroll;
-	text-shadow: 0 0 4px #000;
-	td, th, thead {
-		outline: 1px solid rgba(base.$light,.25);
-	}
-	thead {
-		tr {
-			background-color: rgba(0,0,0,.5);
-		}
-	}
-	th {
-		position: relative;
-		span {
-			position: absolute;
-			@include sc.center;
-		}
-	}
-	td {
-		padding: 8px;
-		&.desc {
-			p:first-child {
-				@include sc.var(color, --light-c1, base.$light);
-			}
-			p:last-child {
-				@include sc.var(color, --normal-c1, base.$normal);
-			}
-		}
-	}
+main {
+	flex-direction: column;
 }
-
-#customapi-cmd-col {
+#customapis-nav {
+	@include sc.var(background-color, --darker-c1, base.$darker);
+	text-align: center;
 	div {
 		display: flex;
 		label {
@@ -62,12 +36,45 @@ table#customapis {
 			}
 		}
 	}
+	.bots {
+		.scroll {
+			flex-direction: column;
+		}
+	}
+}
+#customapis-body {
+	overflow: auto;
+	flex: 1;
+	scroll-snap-type: y proximity;
+	.api {
+		scroll-snap-align: start;
+		padding: 16px;
+		border-bottom: 4px dashed;
+		@include sc.var(border-color, --light-c1, base.$light);
+		> p {
+			text-align: center;
+		}
+		.usage {
+			background-color: rgba(25,25,25,.25);
+			margin-top: 16px;
+			border: 1px solid;
+			@include sc.var(border-color, --light-c1, base.$light);
+			border-radius: 4px;
+			overflow: hidden;
+			> div {
+				padding: 8px;
+			}
+			> p:first-child {
+				@include sc.var(background-color, --darker-c1, base.$darker);
+				text-align: center;
+				outline: 1px solid;
+				@include sc.var(outline-color, --light-c1, base.$light);
+			}
+		}
+	}
 }
 
 #params {
-	> p {
-		text-align: center;
-	}
 	.scroll {
 		max-height: 25vh;
 	}
@@ -120,6 +127,9 @@ table#customapis {
 
 .clipboard {
 	@include sc.var(background-color, --darker-c1, base.$darker);
+	.input, .input * {
+		font-family: "Ubuntu Mono";
+	}
 	svg {
 		@include sc.svg($width: 30px, $size: 2, $fill: none);
 		@include sc.var(stroke, --light-c1, base.$light);
@@ -148,8 +158,15 @@ table#customapis {
 	color: gold;
 }
 
-@media(max-width: 800px) and (max-height: 350px) {
-	.param .dropdown ul {
-		right: 0;
+@media(max-width: 800px) {
+	table#customapis {
+		thead, tbody {
+			width: 300%;
+		}
+	}
+	@media(max-height: 350px) {
+		.param .dropdown ul {
+			right: 0;
+		}
 	}
 }

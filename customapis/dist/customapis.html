@@ -53,124 +53,151 @@
 		</div>
 	</nav>
 	<main>
-		<table id="customapis">
-			<thead>
-				<tr>
-					<th><span>USAGE</span></th>
-					<th id="customapi-cmd-col">
-						<p>COMMAND</p>
-						<div>
-							<label>
-								<input type="radio" name="customapi-cmd-platform" data-value="mixer">
-								<p>Mixer</p>
-							</label>
-							<label>
-								<input type="radio" name="customapi-cmd-platform" data-value="twitch">
-								<p>Twitch</p>
-							</label>
+		<div id="customapis-nav">
+			<p>CustomAPIs</p>
+			<div>
+				<label>
+					<input type="radio" name="customapi-platform" data-value="mixer">
+					<p>Mixer</p>
+				</label>
+				<label>
+					<input type="radio" name="customapi-platform" data-value="twitch">
+					<p>Twitch</p>
+				</label>
+			</div>
+			<span class="bots dropdown">
+				<span></span>
+				<ul>
+					<div class="scroll">
+						<label>
+							<input type="radio" name="customapi-bot" data-value="nightbot" checked>
+							<li>Nightbot</li>
+						</label>
+						<label>
+							<input type="radio" name="customapi-bot" data-value="chatbot">
+							<li>Streamlabs Chatbot</li>
+						</label>
+						<label>
+							<input type="radio" name="customapi-bot" data-value="streamElements">
+							<li>StreamElements</li>
+						</label>
+						<label>
+							<input type="radio" name="customapi-bot" data-value="cloudbot">
+							<li>Streamlabs Cloudbot</li>
+						</label>
+						<label>
+							<input type="radio" name="customapi-bot" data-value="botisimo">
+							<li>Botisimo</li>
+						</label>
+					</div>
+				</ul>
+			</span>
+		</div>
+		<div id="customapis-body">
+			<div class="api">
+				<span>Returns when the user created their account.</span>
+				<p>ENDPOINT</p>
+				<div class="clipboard"
+						 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/joined"
+						 data-params="msg tz format locale">
+				</div>
+				<p>PARAMETERS</p>
+				<div id="params">
+					<div class="param">
+						<p>msg: Message to display.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span contenteditable>{channel}'s account was created on {date}.</span>
 						</div>
-					</th>
-					<th><span>OUTPUT</span></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="desc"><p>!joined USERNAME</p><p>Returns when the user created their account.</p></td>
-					<td class="api">
+					</div>
+					<div class="param">
+						<p>tz: Timezone to use for the date.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span class="dropdown">
+								<span>Unknown Region (UTC) Time</span>
+								<ul>
+									<div class="scroll">
+										<label>
+											<input type="radio" name="customapi-joined-tz" data-value="UTC" checked>
+											<li>Unknown Region (UTC) Time</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-tz" data-value="America/Monterrey">
+											<li>Mexico (Monterrey) Time</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-tz" data-value="US/Pacific">
+											<li>United States (Los Angeles) Time</li>
+										</label>
+									</div>
+								</ul>
+							</span>
+						</div>
+					</div>
+					<div class="param">
+						<p>format: How to format the date.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span class="dropdown">
+								<span>Long</span>
+								<ul>
+									<div class="scroll">
+										<label>
+											<input type="radio" name="customapi-joined-format" data-value="short">
+											<li>Short</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-format" data-value="medium">
+											<li>Medium</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-format" data-value="long" checked>
+											<li>Long</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-format" data-value="full">
+											<li>Full</li>
+										</label>
+									</div>
+								</ul>
+							</span>
+						</div>
+					</div>
+					<div class="param">
+						<p>locale: Language in which to display the date.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span class="dropdown">
+								<span>English</span>
+								<ul>
+									<div class="scroll">
+										<label>
+											<input type="radio" name="customapi-joined-locale" data-value="en" checked>
+											<li>English</li>
+										</label>
+										<label>
+											<input type="radio" name="customapi-joined-locale" data-value="es">
+											<li>Español</li>
+										</label>
+									</div>
+								</ul>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="usage">
+					<p>EXAMPLE USAGE</p>
+					<div>
 						<div class="clipboard"
-								 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/joined"
-								 data-params="msg tz format locale">
-						</div>
-						<div id="params">
-							<p>PARAMETERS</p>
-							<div class="param">
-								<p>msg: Message to display.</p>
-								<div class="input">
-									<label class="toggle"><input type="checkbox"><div></div></label>
-									<span contenteditable>{channel}'s account was created on {date}.</span>
-								</div>
-							</div>
-							<div class="param">
-								<p>tz: Timezone to use for the date.</p>
-								<div class="input">
-									<label class="toggle"><input type="checkbox"><div></div></label>
-									<span class="dropdown">
-										<span>Unknown Region (UTC) Time</span>
-										<ul>
-											<div class="scroll">
-												<label>
-													<input type="radio" name="customapi-joined-tz" data-value="UTC" checked>
-													<li>Unknown Region (UTC) Time</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-tz" data-value="America/Monterrey">
-													<li>Mexico (Monterrey) Time</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-tz" data-value="US/Pacific">
-													<li>United States (Los Angeles) Time</li>
-												</label>
-											</div>
-										</ul>
-									</span>
-								</div>
-							</div>
-							<div class="param">
-								<p>format: How to format the date.</p>
-								<div class="input">
-									<label class="toggle"><input type="checkbox"><div></div></label>
-									<span class="dropdown">
-										<span>Long</span>
-										<ul>
-											<div class="scroll">
-												<label>
-													<input type="radio" name="customapi-joined-format" data-value="short">
-													<li>Short</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-format" data-value="medium">
-													<li>Medium</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-format" data-value="long" checked>
-													<li>Long</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-format" data-value="full">
-													<li>Full</li>
-												</label>
-											</div>
-										</ul>
-									</span>
-								</div>
-							</div>
-							<div class="param">
-								<p>locale: Language in which to display the date.</p>
-								<div class="input">
-									<label class="toggle"><input type="checkbox"><div></div></label>
-									<span class="dropdown">
-										<span>English</span>
-										<ul>
-											<div class="scroll">
-												<label>
-													<input type="radio" name="customapi-joined-locale" data-value="en" checked>
-													<li>English</li>
-												</label>
-												<label>
-													<input type="radio" name="customapi-joined-locale" data-value="es">
-													<li>Español</li>
-												</label>
-											</div>
-										</ul>
-									</span>
-								</div>
-							</div>
-						</div>
-					</td>
-					<td>USERNAME's account was created on February 19, 2015 at 7:14:11 PM UTC</td>
-				</tr>
-			</tbody>
-		</table>
+								 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/joined?tz={args}"></div>
+						<p>!joined TIMEZONE</p>
+						<p>Response</p>
+						<p>USERNAME's account was created on June 20, 2019 at 7:49:14 AM UTC</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 	<footer>
 		<a href="https://github.com/Stuff7" target="_blank">
