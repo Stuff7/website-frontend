@@ -48,15 +48,21 @@ function PARAM(name, s="&") {
 	return `<span class="op">${s}</span><span class="var">${name}</span><span class="op">=</span>`
 }
 
-export function getDatePicker() {
-	const datepicker = DatePicker($(".date-picker"))
-	const dropdownTag = $("#datepicker").$("span")
-	dropdownTag.innerText = datepicker.toString()
+export function getDatePicker(dDownCalendar) {
+	if(!dDownCalendar.classList.contains("datepicker")) return
+	const datepicker = DatePicker(dDownCalendar.$(".date-picker"))
+	const dDownTag = dDownCalendar.$("span")
+	function handler() {
+		dDownTag.innerText = this.toString()
+	}
+	datepicker.on("datechange", handler)
+	handler.call(datepicker)
 	return datepicker
 }
 
 export function setupDDownTag(dDown) {
-	if(!dDown.classList.contains("dropdown")) return [dDown]
+	if(!dDown.classList.contains("dropdown") || dDown.classList.contains("datepicker"))
+		return [dDown]
 	const title = dDown.$("span")
 	const options = dDown.$$("ul label")
 

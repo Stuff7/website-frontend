@@ -37,8 +37,25 @@ main {
 		}
 	}
 	.bots {
+		width: 100%;
+		@include sc.var(background-color, --dark-c1, base.$dark);
+		outline: 1px solid;
+		@include sc.var(outline-color, --light-c1, base.$light);
+		text-align: center;
+		&:hover {
+			@include sc.var(background-color, --dim-c1, base.$dim);
+		}
 		.scroll {
 			flex-direction: column;
+		}
+		span::after {
+			content: "\23F7";
+			position: relative;
+			left: 32px;
+		}
+		ul {
+			@include sc.centerX;
+			text-align: left;
 		}
 	}
 }
@@ -46,11 +63,22 @@ main {
 	overflow: auto;
 	flex: 1;
 	scroll-snap-type: y proximity;
-	.api {
+	.api, #guide {
 		scroll-snap-align: start;
 		padding: 16px;
 		border-bottom: 4px dashed;
 		@include sc.var(border-color, --light-c1, base.$light);
+		.login-msg {
+			text-decoration: dotted underline;
+			@include sc.var(text-decoration-color, --dark-c1, base.$dark);
+			@include sc.var(color, --dark-c1, base.$dark);
+			@include sc.var(background-color, --light-c1, base.$light);
+			font-weight: bold;
+			display: block;
+			box-sizing: border-box;
+			width: 100%;
+			text-align: center;
+		}
 		> p {
 			text-align: center;
 		}
@@ -81,6 +109,11 @@ main {
 }
 .param {
 	@include sc.flex($dir: column);
+	p a {
+		@include sc.var(color, --light-c1, base.$light);
+		font-weight: bold;
+		text-decoration: none;
+	}
 	.input {
 		background-color: rgba(0,0,0,.5);
 		display: flex;
@@ -124,6 +157,22 @@ main {
 		}
 	}
 }
+#guide {
+	background-color: rgba(0,0,0,.55);
+	margin: 16px;
+	border: 1px solid;
+	@include sc.var(border-color, --light-c1, base.$light);
+	border-radius: 4px;
+	p {
+		text-align: left !important;
+		border-bottom: 1px solid;
+		@include sc.var(border-color, --normal-c1, base.$normal);
+		&.str {
+			display: block;
+			background-color: rgba(0,0,0,.3);
+		}
+	}
+}
 
 .clipboard {
 	@include sc.var(background-color, --darker-c1, base.$darker);
@@ -133,6 +182,12 @@ main {
 	svg {
 		@include sc.svg($width: 30px, $size: 2, $fill: none);
 		@include sc.var(stroke, --light-c1, base.$light);
+	}
+}
+.date-picker {
+	@include sc.var(background-color, --darker-c1, base.$darker);
+	span {
+		padding: 0;
 	}
 }
 

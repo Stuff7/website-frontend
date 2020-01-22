@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>CustomAPIs - Stuff7</title>
 	<link rel="stylesheet" href="customapis.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="customapis.js"></script>
 </head>
 <body>
@@ -196,6 +197,125 @@
 						<p>USERNAME's account was created on June 20, 2019 at 7:49:14 AM UTC</p>
 					</div>
 				</div>
+			</div>
+			<div class="api">
+				<span>Returns time since the account was created.</span>
+				<p>ENDPOINT</p>
+				<div class="clipboard"
+						 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/accountage"
+						 data-params="msg">
+				</div>
+				<p>PARAMETERS</p>
+				<div id="params">
+					<div class="param">
+						<p>msg: Message to display. <a href="#guide">Syntax?</a></p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span contenteditable>{channel}'s account is <{years} year{years(s)}>, <{months} month{months(s)}>, <{days} day{days(s)}>, <{hours} hour{hours(s)}>, <{minutes} minute{minutes(s)}>, <{seconds} second{seconds(s)}> and <{microseconds}ms> old.</span>
+						</div>
+					</div>
+				</div>
+				<div class="usage">
+					<p>EXAMPLE USAGE</p>
+					<div>
+						<div class="clipboard"
+								 data-value="https://stuff7.herokuapp.com/api/{provider}/{args}/accountage"></div>
+						<p>!accountage USERNAME</p>
+						<p>Response</p>
+						<p>USERNAME's account is 7 months, 1 day, 17 hours, 4 minutes, 45 seconds and 864288μs old.</p>
+					</div>
+				</div>
+			</div>
+			<div class="api">
+				<span>Returns how long a user has been following a channel.</span>
+				<p>ENDPOINT</p>
+				<div class="clipboard"
+						 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/followage"
+						 data-params="msg">
+				</div>
+				<p>PARAMETERS</p>
+				<div id="params">
+					<div class="param">
+						<p>msg: Message to display. <a href="#guide">Syntax?</a></p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span contenteditable>{{follower}} has been following {channel} for <{years} year{years(s)}>, <{months} month{months(s)}>, <{days} day{days(s)}>, <{hours} hour{hours(s)}>, <{minutes} minute{minutes(s)}>, <{seconds} second{seconds(s)}> and <{microseconds}μs>.</span>
+						</div>
+					</div>
+				</div>
+				<div class="usage">
+					<p>EXAMPLE USAGE</p>
+					<div>
+						<div class="clipboard"
+								 data-value="https://stuff7.herokuapp.com/api/{provider}/{channel}/followage?username={args}"></div>
+						<p>!followage USERNAME</p>
+						<p>Response</p>
+						<p>USERNAME has been following CHANNEL for 7 months, 1 day, 17 hours, 10 minutes, 42 seconds and 962839μs.</p>
+					</div>
+				</div>
+			</div>
+			<div class="api">
+				<a class="login-msg" href="/login" target="_blank">REQUIRES AUTHENTICATION.</a>
+				<span>Returns time since the stream started.</span>
+				<p>ENDPOINT</p>
+				<div class="clipboard"
+						 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/uptime"
+						 data-params="test online offline">
+				</div>
+				<p>PARAMETERS</p>
+				<div id="params">
+					<div class="param">
+						<p>test: Simulate stream with the given date for testing purposes.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span class="dropdown datepicker">
+								<span>Select date</span>
+								<ul>
+									<div class="date-picker" data-week-start="mon" data-hour12></div>
+								</ul>
+							</span>
+						</div>
+					</div>
+					<div class="param">
+						<p>online: Message to display when online. <a href="#guide">Syntax?</a></p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span contenteditable>{channel} has been live for &lt{days} day{days(s)}&gt, &lt{hours} hour{hours(s)}&gt, &lt{minutes} minute{minutes(s)}&gt and &lt{seconds} second{seconds(s)}&gt.</span>
+						</div>
+					</div>
+					<div class="param">
+						<p>offline: Message to display when offline.</p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox"><div></div></label>
+							<span contenteditable>{channel} is offline.</span>
+						</div>
+					</div>
+				</div>
+				<div class="usage">
+					<p>EXAMPLE USAGE</p>
+					<div>
+						<div class="clipboard"
+								 data-value="https://stuff7.herokuapp.com/api/{provider}/{channel}/uptime"></div>
+						<p>!uptime</p>
+						<p>Response</p>
+						<p>CHANNEL has been live for 7 days, 14 hours, 47 minutes and 37 seconds and also 4564μs</p>
+					</div>
+				</div>
+			</div>
+			<div id="guide">
+				<p class="str">You've probably noticed an special syntax in some of the input parameters. That's used to allow for a more dynamic way to format the time elapsed, here's a guide on how to use it:</p>
+
+				<p><span>Time variables tell you the time passed. Can be any of <span class="var">{years}</span>, <span class="var">{months}</span>, <span class="var">{days}</span>, <span class="var">{hours}</span>, <span class="var">{minutes}</span>, <span class="var">{seconds}</span> and <span class="var">{microseconds}</span></span></p>
+				
+				<p><span>When dealing with plural words you can simply use the time variable as a function like this: <span class="var">{days(<span class="str">singularWord</span>, <span class="str">pluralWord</span>)}</span>. In the example if the <span class="var">{days}</span> variable is equal to <span class="digit">1</span> it will show the <span class="str">singularWord</span>, otherwise it will show the <span class="str">pluralWord</span>. The same applies for the other time variables.</span></p>
+				
+				<p>Anything like <span class="fn">&ltthis&gt</span> or <span class="fn">[this]</span> is called a block.</p>
+				
+				<p><span>A block like this: <span class="fn">&lt<span class="var">{days}</span> passed&gt</span> will only be shown if the variable used inside is greater than <span class="digit">0</span>.</span></p>
+				
+				<p><span>Meanwhile a block like this <span class="fn">[<span class="var">{hours}</span> live]</span> will always be shown.</span></p>
+				
+				<p>Anything between <span class="digit">2</span> blocks will only be shown if there's a visible block already placed.</p>
 			</div>
 		</div>
 	</main>

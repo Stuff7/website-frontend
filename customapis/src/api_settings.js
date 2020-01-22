@@ -1,6 +1,6 @@
 import {ClipboardInput} from "Libs/clipboard.js"
 import {formatStr} from "Libs/utils.js"
-import {URLConstructor, setupDDownTag} from "./utils.js"
+import {URLConstructor, setupDDownTag, getDatePicker} from "./utils.js"
 
 const BOT = {}
 
@@ -23,7 +23,8 @@ APISettings.prototype.updateExample = function(provider) {
 		url: formatStr(this.exampleURL, {
 			provider: this.provider,
 			user: this.bot.user,
-			args: this.bot.args
+			args: this.bot.args,
+			channel: this.bot.channel
 		})
 	}))
 }
@@ -53,12 +54,13 @@ APISettings.prototype.setupParamHandlers = function() {
 			this.updateClipboard()
 		}
 		for(const option of setupDDownTag(paramVal.textInput)) {
-			const handler = ()=> {
-				paramVal.dDown.innerText = option.dataset.value
+			const datepicker = getDatePicker(option)
+			function handler() {
+				paramVal.dDown.innerText = datepicker? datepicker.date.toISOString() : option.dataset.value
 				toggleHandler()
 			}
-			option.on("input", handler)
-			option.checked && handler()
+			option.on("input", handler);
+			(option.checked || datepicker) && handler.call(option)
 		}
 		toggle.on("change", toggleHandler)
 		toggleHandler()
@@ -67,26 +69,31 @@ APISettings.prototype.setupParamHandlers = function() {
 
 BOT.chatbot = {
 	cmd: "$readapi({url})",
+	channel: "$mychannel",
 	user: "$username",
 	args: "$dummyormsg"
 }
 BOT.botisimo = {
 	cmd: "$(fetch {url})",
+	channel: "$(urlencode $(channel))",
 	user: "$(urlencode $(usernameplain)",
 	args: "$(urlencode $(query))"
 }
 BOT.nightbot = {
 	cmd: "$(urlfetch {url})",
+	channel: "$(channel)",
 	user: "$(user)",
 	args: "$(querystring)"
 }
 BOT.cloudbot = {
 	cmd: "{readapi.{url}}",
+	channel: "{channel.name}",
 	user: "{user.name}",
 	args: "{start:end}"
 }
 BOT.streamElements = {
 	cmd: "${customapi.{url}}",
+	channel: "${channel}",
 	user: "${user.name}",
 	args: "${1:}"
 }
