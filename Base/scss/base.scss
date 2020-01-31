@@ -43,7 +43,8 @@ button {
 nav {
 	display: flex;
 	@include sc.var(background-color, --darker-c1, $darker);
-	outline: 1px solid var(--dim-c1);
+	outline: 1px solid;
+	@include sc.var(outline-color, --dim-c1, $dim);
 	z-index: 1;
 	user-select: none;
 	> div {
@@ -108,7 +109,8 @@ footer {
 	font-size: 0;
 }
 #nav-home {
-	border-bottom: 1px solid var(--light-c1);
+	border-bottom: 1px solid;
+	@include sc.var(border-bottom-color, --light-c1, $light);
 	cursor: pointer;
 }
 #nav-home svg, #nav-home span {
@@ -124,7 +126,8 @@ footer {
 	ul {
 		padding: 8px 0;
 		@include sc.var(background-color, --darker-c1, $darker);
-		border: 1px solid var(--dim-c1);
+		border: 1px solid;
+		@include sc.var(border-color, --dim-c1, $dim);
 		width: 25%;
 		min-width: 200px;
 		max-width: 400px;

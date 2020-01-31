@@ -1,4 +1,5 @@
 @use "../../base/scss/base";
+@use "shortcuts" as sc;
 
 main {
 	background: url("../assets/bg.jpg") no-repeat center center fixed;
@@ -33,6 +34,18 @@ main {
 	align-items: center;
 	width: 100vw;
 	opacity: 0.9;
+}
+
+.msg {
+	padding: 4px;
+	text-align: center;
+	width: 35%;
+	border-radius: 8px;
+	border: 1px solid;
+}
+.error {
+	border-color: rgba(lightpink, .8);
+	background-color: rgba(crimson, .8);
 }
 
 .content {
