@@ -63,6 +63,14 @@ main {
 	overflow: auto;
 	flex: 1;
 	scroll-snap-type: y proximity;
+	.api-name {
+		outline: 1px solid;
+		@include sc.var(outline-color, --dim-c1, base.$dim);
+		@include sc.var(color, --light-c1, base.$light);
+		@include sc.var(background-color, --darker-c1, base.$darker);
+		font-weight: bold;
+		font-size: 2em;
+	}
 	.api, #guide {
 		scroll-snap-align: start;
 		padding: 16px;
@@ -109,7 +117,7 @@ main {
 }
 .param {
 	@include sc.flex($dir: column);
-	p a {
+	p a, p span {
 		@include sc.var(color, --light-c1, base.$light);
 		font-weight: bold;
 		text-decoration: none;

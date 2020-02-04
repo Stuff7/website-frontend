@@ -95,7 +95,8 @@
 			</span>
 		</div>
 		<div id="customapis-body">
-			<div class="api">
+			<div class="api" data-unsupported="twitch">
+				<p class="api-name">JOIN DATE</p>
 				<span>Returns when the user created their account.</span>
 				<p>ENDPOINT</p>
 				<div class="clipboard"
@@ -198,7 +199,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="api">
+			<div class="api" data-unsupported="twitch">
+				<p class="api-name">JOIN DATE</p>
 				<span>Returns time since the account was created.</span>
 				<p>ENDPOINT</p>
 				<div class="clipboard"
@@ -227,14 +229,22 @@
 				</div>
 			</div>
 			<div class="api">
+				<p class="api-name">JOIN DATE</p>
 				<span>Returns how long a user has been following a channel.</span>
 				<p>ENDPOINT</p>
 				<div class="clipboard"
 						 data-value="https://stuff7.herokuapp.com/api/{provider}/{user}/followage"
-						 data-params="msg">
+						 data-params="username msg">
 				</div>
 				<p>PARAMETERS</p>
 				<div id="params">
+					<div class="param">
+						<p>username: Username or id of the follower. <span>[REQUIRED]</span></p>
+						<div class="input">
+							<label class="toggle"><input type="checkbox" checked><div></div></label>
+							<span contenteditable>someFollowerUsername</span>
+						</div>
+					</div>
 					<div class="param">
 						<p>msg: Message to display. <a href="#guide">Syntax?</a></p>
 						<div class="input">
@@ -255,6 +265,7 @@
 				</div>
 			</div>
 			<div class="api">
+				<p class="api-name">JOIN DATE</p>
 				<a class="login-msg" href="/login" target="_blank">REQUIRES AUTHENTICATION.</a>
 				<span>Returns time since the stream started.</span>
 				<p>ENDPOINT</p>

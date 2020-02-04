@@ -6,19 +6,24 @@ const BOT = {}
 
 export function APISettings(elem, bot) {
 	if(!(this instanceof APISettings)) return new APISettings(elem, bot)
+	this.unsupported = (elem.dataset.unsupported || "").split(" ")
 	this.provider = "mixer"
 	this.exampleCb = ClipboardInput(elem.$(".usage .clipboard"))
 	this.bot = BOT[bot] || BOT["nightbot"]
 	this.exampleURL = this.exampleCb.value
 	this.clipboard = ClipboardInput(elem.$(".clipboard"))
 	this.url = URLConstructor(this.clipboard.value, this.clipboard.dataset.params)
-	this.setupParams(elem)
+	this.view = elem
+	this.setupParams()
 }
 APISettings.prototype.updateClipboard = function() {
 	this.clipboard.setHTML(this.url.getHTML())
 }
 APISettings.prototype.updateExample = function(provider) {
-	if(provider) this.provider = provider
+	if(provider) {
+		this.provider = provider
+		this.updateVisibility()
+	}
 	this.exampleCb.setValue(formatStr(this.bot.cmd, {
 		url: formatStr(this.exampleURL, {
 			provider: this.provider,
@@ -33,10 +38,13 @@ APISettings.prototype.setBot = function(name) {
 	this.bot = BOT[name]
 	this.updateExample()
 }
+APISettings.prototype.updateVisibility = function() {
+	this.view.hidden = this.unsupported.includes(this.provider)
+}
 
-APISettings.prototype.setupParams = function(elem) {
+APISettings.prototype.setupParams = function() {
 	this.params = {}
-	const elems = elem.$$(".param")
+	const elems = this.view.$$(".param")
 	let i = 0
 	for(const param in this.url.param)
 		this.params[param] = elems[i++]
