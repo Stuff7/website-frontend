@@ -3,7 +3,7 @@ import {ColorPicker} from "Libs/color_picker.js"
 import {Palette} from "Libs/color.js"
 import {Dropdown} from "Libs/dropdown.js"
 
-import {post} from "./utils.js"
+import {post, simplePost} from "./utils.js"
 
 $onready(function() {
 	const nav = {
@@ -18,6 +18,11 @@ $onready(function() {
 			option.checked||post("user_settings", {language: this.dataset.name})
 				.then(r=> location.reload()).catch(e=> console.log(e))
 		}
+	}
+	for(const user of $$("#nav-user-switch-inner .scroll label")) {
+		user.on("click", function() {
+			simplePost("switch_view", this.dataset.id).then(r=> location.reload()).catch(e=> console.log(e))
+		})
 	}
 	for(const dropdown of $$(".dropdown"))
 		Dropdown(dropdown)

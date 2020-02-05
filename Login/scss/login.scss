@@ -27,11 +27,12 @@ main {
 }
 
 .layer {
+	overflow: auto;
 	background: radial-gradient(#20282D, #09070C);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: safe center;
+	align-items: safe center;
 	width: 100vw;
 	opacity: 0.9;
 }
@@ -39,7 +40,7 @@ main {
 .msg {
 	padding: 4px;
 	text-align: center;
-	width: 35%;
+	max-width: 75%;
 	border-radius: 8px;
 	border: 1px solid;
 }
@@ -50,10 +51,12 @@ main {
 
 .content {
 	display: flex;
-	padding-top: 16px;
+	padding-top: 8px;
 	width: 50%;
+	width: calc(50% + 16px);
 	flex-wrap: wrap;
 	a {
+		margin: 0 8px 8px 8px;
 		display: inline-flex;
 		border-radius: 20px;
 		padding: 12px 32px;
@@ -73,6 +76,9 @@ main {
 		}
 	}
 	.mixer {
-		background: linear-gradient(4deg, #333, #1FBAED);
+		background: linear-gradient(4deg, #1F5A9D, #1FBAED);
+	}
+	.twitch {
+		background: linear-gradient(4deg, #5D1E8B, #8D3EBB);
 	}
 }

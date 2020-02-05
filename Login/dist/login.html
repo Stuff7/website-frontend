@@ -3,6 +3,7 @@
 <head>
 	<title>Stuff7 | Login</title>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="login.css">
 	<script src="../../base/dist/base.js"></script>
 </head>
@@ -18,12 +19,16 @@
 		</div>
 		<div id="nav-user">
 			<button class="dropdown">
-				<svg viewBox="0 0 64 64">
+				<img class="nav-user-img" src="assets/bg.jpg">
+				<!--<svg viewBox="0 0 64 64">
 					<circle cx="32" cy="20" r="18"/><path d="M0 64 A32 24 0 1 1 64 64"/>
-				</svg>
+				</svg>-->
 				<ul>
 					<label><li>Lonly</li></label>
 					<div class="scroll">
+						<label><li id="nav-user-switch" class="button">Switch account</li></label>
+						<label><li id="nav-user-login" class="button">Add account</li></label>
+						<div class="separator"></div>
 						<label><li id="nav-user-lang" class="button">Language</li></label>
 						<label><li id="nav-user-tz" class="button">Timezone</li></label>
 						<label><li id="nav-user-color" class="button">Color</li></label>
@@ -43,6 +48,28 @@
 					<div class="scroll">
 						<label><input type="radio" name="nav-user-tz"><li>United States (us)</li></label>
 						<label><input type="radio" name="nav-user-tz"><li>México (mx)</li></label>
+					</div>
+				</ul>
+				<ul id="nav-user-login-inner" class="inner-dropdown">
+					<label><li>Connect with:</li></label>
+					<div class="scroll">
+						<label><a href="{{ mixer_link }}"><li><img class="left-img" src="assets/mixer.svg">Mixer</li></a></label>
+						<label><a href="{{ twitch_link }}"><li><img class="left-img" src="assets/twitch.svg">Twitch</li></a></label>
+					</div>
+				</ul>
+				<ul id="nav-user-switch-inner" class="inner-dropdown">
+					<label><li>Linked accounts:</li></label>
+					<div class="scroll">
+						<label><li>
+							<img class="nav-user-img left-img" src="assets/bg.jpg">
+							<span>Lonly</span>
+							<img src="assets/mixer.svg">
+						</li></label>
+						<label><li>
+							<img class="nav-user-img left-img" src="assets/bg.jpg">
+							<span>リックロールヨー</span>
+							<img src="assets/twitch.svg">
+						</li></label>
 					</div>
 				</ul>
 				<ul id="nav-user-color-inner" class="inner-dropdown">
@@ -71,7 +98,8 @@
 			<div class="error msg">Error: Fuck you! You did something wrong.</div>
 			<p>Connect using</p>
 			<div class="content">
-				<a class="mixer"><img src="static/mixer.svg"><span>Mixer</span></a>
+				<a class="mixer"><img src="assets/mixer.svg"><span>Mixer</span></a>
+				<a class="twitch"><img src="assets/twitch.svg"><span>Twitch</span></a>
 			</div>
 		</div>
 	</main>
